@@ -27,7 +27,16 @@ class Piano extends React.Component{
         });
     }
 
-    componentDidMount = () =>{
+    handleKeyUp = (event) =>{
+        const index = this.state.pressedKeys.indexOf(event.key);
+        if(index > -1){
+            this.setState(state => ({
+                pressedKeys: state.pressedKeys.splice(index, 1)
+            }));
+        }
+    }
+
+    componentDidMount = () => {
         window.addEventListener('keydown', this.handleKeyDown);
         window.addEventListener('keyup', this.handleKeyUp);
     }
