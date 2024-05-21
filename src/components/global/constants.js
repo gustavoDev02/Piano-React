@@ -11,17 +11,17 @@ const NOTES =[
 
 const KEY_TO_NOTE = {
     z: 'c',
-    z: 'df',
-    z: 'd',
-    z: 'ef',
-    z: 'e',
-    z: 'f',
-    z: 'gf',
-    z: 'g',
-    z: 'af',
-    z: 'a',
-    z: 'bf',
-    z: 'b',
+    s: 'df',
+    x: 'd',
+    d: 'ef',
+    c: 'e',
+    v: 'f',
+    g: 'gf',
+    b: 'g',
+    h: 'af',
+    n: 'a',
+    j: 'bf',
+    m: 'b'
 };
 
 const NOTE_TO_KEY = {
