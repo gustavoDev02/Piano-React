@@ -6,6 +6,7 @@ const NOTES =[
     'c',  'df', 'd', 'ef',  
     'e',  'f', 'gf',  'g', 
     'af',  'a',  'bf',  'b',
+
    
 ];
 
@@ -21,7 +22,13 @@ const KEY_TO_NOTE = {
     h: 'af',
     n: 'a',
     j: 'bf',
-    m: 'b'
+    m: 'b',
+    g: 'gf',
+    b: 'g',
+    h: 'af',
+    n: 'a',
+    j: 'bf',
+    m: 'b',
 };
 
 const NOTE_TO_KEY = {

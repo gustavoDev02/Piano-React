@@ -1,32 +1,32 @@
 import React from "react";
 import _ from 'lodash';
-import {Key} from './Key';
-import './Piano.css'
-import {NOTES, KEY_TO_NOTE, VALID_KEYS} from '../components/global/constants'
+import { Key } from './Key';
+import './Piano.css';
+import { NOTES, KEY_TO_NOTE, VALID_KEYS } from '../components/global/constants';
 
-class Piano extends React.Component{
-    constructor(props){
+class Piano extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             pressedKeys: [],
         };
     }
 
-    playNote = (note) =>{
-        if(!_.isEmpty(note)){
+    playNote = (note) => {
+        if (!_.isEmpty(note)) {
             const noteAudio = new Audio(document.getElementById(note).src);
             noteAudio.play();
         }
     }
 
-    handleKeyDown = (event) =>{
-        if(event.repeat){
+    handleKeyDown = (event) => {
+        if (event.repeat) {
             return;
         }
 
         const key = event.key;
         const updatedPressedKeys = [...this.state.pressedKeys];
-        if (!updatedPressedKeys.includes(key) && VALID_KEYS.includes(key)){
+        if (!updatedPressedKeys.includes(key) && VALID_KEYS.includes(key)) {
             updatedPressedKeys.push(key);
         }
         this.setState({
@@ -35,13 +35,17 @@ class Piano extends React.Component{
         this.playNote(KEY_TO_NOTE[key]);
     }
 
-    handleKeyUp = (event) =>{
+    handleKeyUp = (event) => {
         const index = this.state.pressedKeys.indexOf(event.key);
-        if(index > -1){
+        if (index > -1) {
             this.setState(state => ({
-                pressedKeys: state.pressedKeys.splice(index, 1)
+                pressedKeys: state.pressedKeys.filter((_, i) => i !== index)
             }));
         }
+    }
+
+    handleClick = (note) => {
+        this.playNote(note);
     }
 
     componentDidMount = () => {
@@ -49,41 +53,39 @@ class Piano extends React.Component{
         window.addEventListener('keyup', this.handleKeyUp);
     }
 
-    render(){
-        const keys = _.map(NOTES, (note, index) =>{
-            return(
+    render() {
+        const keys = _.map(NOTES, (note, index) => {
+            return (
                 <Key
                     key={index}
                     note={note}
-                    pressedKeys ={this.state.pressedKeys}
+                    pressedKeys={this.state.pressedKeys}
+                    onClick={this.handleClick}
                 />
             );
         });
 
-        const audioFiles = _.map(NOTES,(note, index) =>{
-            return(
+        const audioFiles = _.map(NOTES, (note, index) => {
+            return (
                 <audio
                     id={note}
                     key={index}
                     src={`notes/${note}.mp3`}
-        
                 />
             );
         });
 
-        return(
-        <div>
-            <div className="piano">
-                {keys}
-            </div>
+        return (
             <div>
-                {audioFiles}
+                <div className="piano">
+                    {keys}
+                </div>
+                <div>
+                    {audioFiles}
+                </div>
             </div>
-        </div>
-        
-
-       );
+        );
     }
 }
 
-export{Piano}
+export { Piano };

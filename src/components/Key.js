@@ -1,15 +1,19 @@
 import React from "react";
-import './Key.css'; // Importe o arquivo CSS corretamente
+import './Key.css';
 import _ from 'lodash';
-import {NOTE_TO_KEY} from '../components/global/constants';
+import { NOTE_TO_KEY } from '../components/global/constants';
 
 class Key extends React.Component {
     noteIsFlat = (note) => {
         return note.length > 1;
     }
 
-    keyIsPressed = (note, pressedKeys) =>{
+    keyIsPressed = (note, pressedKeys) => {
         return _.includes(pressedKeys, NOTE_TO_KEY[note]);
+    }
+
+    handleClick = () => {
+        this.props.onClick(this.props.note);
     }
 
     render() {
@@ -19,12 +23,12 @@ class Key extends React.Component {
         if (noteIsFlat) {
             keyClassName += " flat";
         }
-        if(keyIsPressed){
+        if (keyIsPressed) {
             keyClassName += " pressed";
         }
 
         return (
-            <div className={keyClassName}>
+            <div className={keyClassName} onClick={this.handleClick}>
                 <div className="key-text">
                     {noteIsFlat ? null : this.props.note.toUpperCase()}
                 </div>
